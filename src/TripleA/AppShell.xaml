@@ -7,10 +7,13 @@
     xmlns:views="clr-namespace:TripleA.Views"
     Shell.FlyoutBehavior="Flyout">
 
-    <FlyoutItem Title="Home">
+    <!--<FlyoutItem Title="Home">
         <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>-->
+    <FlyoutItem Title="Statistiques" Route="Statistiques">
+        <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
     </FlyoutItem>
-    
+
     <FlyoutItem Title="Joueurs">
         <ShellContent ContentTemplate="{DataTemplate views:PlayerPage}" />
     </FlyoutItem>
@@ -19,8 +22,5 @@
         <ShellContent ContentTemplate="{DataTemplate views:GamePage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Statistiques">
-        <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
-    </FlyoutItem>
 
 </Shell>

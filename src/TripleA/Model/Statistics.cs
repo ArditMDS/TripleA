@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace TripleA.Model
 {
-    public class Game
+    internal class Statistics
     {
-        public Guid id { get; set; }
-        public DateTime date { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TripleA"
-    xmlns:Views="clr-namespace:TripleA.Views"
+    xmlns:views="clr-namespace:TripleA.Views"
     Shell.FlyoutBehavior="Flyout">
 
     <FlyoutItem Title="Home">
@@ -12,15 +12,15 @@
     </FlyoutItem>
     
     <FlyoutItem Title="Joueurs">
-        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:PlayerPage}" />
     </FlyoutItem>
 
-    <!--<FlyoutItem Title="Parties">
-        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
+    <FlyoutItem Title="Parties">
+        <ShellContent ContentTemplate="{DataTemplate views:GamePage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Statistiques">
-        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
-    </FlyoutItem>-->
+        <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
+    </FlyoutItem>
 
 </Shell>

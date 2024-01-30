@@ -53,7 +53,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="src\Model\" />
 	  <Folder Include="src\ViewModel\" />
 	  <Folder Include="src\View\" />
 	</ItemGroup>

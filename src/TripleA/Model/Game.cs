@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TripleA.src.Model
+namespace TripleA.Model
 {
     public class Game
     {

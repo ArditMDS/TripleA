@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TripleA.Model
 {
-    public abstract class Statistics
+    public class TeamStatistics : Statistics
     {
-
     }
 }

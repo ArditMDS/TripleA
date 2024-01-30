@@ -1,8 +1,8 @@
 namespace TripleA.Views;
 
-public partial class NewPage1 : ContentPage
+public partial class PlayerPage : ContentPage
 {
-	public NewPage1()
+	public PlayerPage()
 	{
 		InitializeComponent();
 	}

@@ -4,11 +4,23 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TripleA"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:Views="clr-namespace:TripleA.Views"
+    Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Home">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Joueurs">
+        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
+    </FlyoutItem>
+
+    <!--<FlyoutItem Title="Parties">
+        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Statistiques">
+        <ShellContent ContentTemplate="{DataTemplate Views:PlayerPage}" />
+    </FlyoutItem>-->
 
 </Shell>

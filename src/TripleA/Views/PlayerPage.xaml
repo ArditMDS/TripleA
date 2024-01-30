@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label
@@ -50,7 +50,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label
@@ -64,6 +64,12 @@
             Placeholder="SuperToto123"
             Keyboard="Text"/>
         </Grid>
+
+        <Button
+            Text="Ajouter joueur"
+            SemanticProperties.Hint="Crée un nouveau joueur"
+            HorizontalOptions="Center" 
+            Margin="3"/>
 
     </VerticalStackLayout>
 </ContentPage>

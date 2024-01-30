@@ -10,17 +10,17 @@
     <!--<FlyoutItem Title="Home">
         <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
     </FlyoutItem>-->
-    <FlyoutItem Title="Statistiques" Route="Statistiques">
+
+    <FlyoutItem Title="📊 Statistiques" Route="Statistiques">
         <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Joueurs">
+    <FlyoutItem Title="🕹️ Joueurs">
         <ShellContent ContentTemplate="{DataTemplate views:PlayerPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Parties">
+    <FlyoutItem Title="🏆 Parties">
         <ShellContent ContentTemplate="{DataTemplate views:GamePage}" />
     </FlyoutItem>
-
 
 </Shell>

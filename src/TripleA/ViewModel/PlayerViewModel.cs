@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,6 +20,10 @@ namespace TripleA.ViewModel
         private string _playerPseudo;
         private Team _selectedTeam;
         private readonly PlayerManager _playerManager;
+        private Player _editingPlayer;
+        private bool _isEditing;
+        public ICommand SaveChangesCommand { get; private set; }
+
 
         public ObservableCollection<Player> Players { get; private set; }
         public ObservableCollection<Team> AvailableTeams { get; set; } = new ObservableCollection<Team>();
@@ -60,6 +65,7 @@ namespace TripleA.ViewModel
         }
 
         public ICommand AddPlayerCommand { get; private set; }
+        public ICommand EditPlayerCommand { get; private set; }
         public ICommand DeletePlayerCommand { get; private set; }
 
         // constructeur
@@ -75,9 +81,54 @@ namespace TripleA.ViewModel
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Alpha", "ALPHA", new List<Player>()));
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Beta", "BETA", new List<Player>()));
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Gamma", "GAMMA", new List<Player>()));
+
+            IsEditing = false;
+            SaveChangesCommand = new Command(SaveChanges, CanSaveChanges);
+            EditPlayerCommand = new Command<Player>(EditPlayer);
         }
 
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private bool CanSaveChanges() => CanSubmit;
+
+        private void SaveChanges()
+        {
+            if (_editingPlayer != null)
+            {
+                // Mettre à jour le joueur avec les nouvelles valeurs
+                _editingPlayer.Name = PlayerName;
+                _editingPlayer.Pseudo = PlayerPseudo;
+                _editingPlayer.Team = SelectedTeam;
+
+                // Mise à jour dans la liste (si nécessaire)
+                OnPropertyChanged(nameof(Players));
+            }
+
+            // Réinitialiser l'état d'édition
+            ResetEditingState();
+        }
+
+        private void EditPlayer(Player player)
+        {
+            _editingPlayer = player;
+            PlayerName = player.Name;
+            PlayerPseudo = player.Pseudo;
+            SelectedTeam = player.Team;
+            IsEditing = true;
+        }
+
+        private void ResetEditingState()
+        {
+            _editingPlayer = null;
+            IsEditing = false;
+            // Réinitialiser les valeurs des champs d'entrée
+            PlayerName = string.Empty;
+            PlayerPseudo = string.Empty;
+            SelectedTeam = null;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         private void AddPlayer()
         {
@@ -98,5 +149,19 @@ namespace TripleA.ViewModel
         }
 
         public bool CanSubmit => !string.IsNullOrWhiteSpace(PlayerName) && !string.IsNullOrWhiteSpace(PlayerPseudo) && SelectedTeam != null;
+        public bool CanAddPlayer => !IsEditing;
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set
+            {
+                if (_isEditing == value) return;
+                _isEditing = value;
+                OnPropertyChanged(nameof(IsEditing));
+                OnPropertyChanged(nameof(CanAddPlayer));
+                (AddPlayerCommand as Command)?.ChangeCanExecute();
+                (SaveChangesCommand as Command)?.ChangeCanExecute();
+            }
+        }
     }
 }

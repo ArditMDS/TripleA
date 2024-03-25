@@ -102,6 +102,12 @@
                 </Picker>
             </Grid>
 
+            <Button Text="Sauvegarder changements"
+                Command="{Binding SaveChangesCommand}"
+                IsVisible="{Binding IsEditing}"
+                HorizontalOptions="Center"
+                Margin="3"/>
+
             <Button
                 Text="Ajouter joueur"
                 SemanticProperties.Hint="Crée un nouveau joueur"
@@ -144,12 +150,22 @@
                                         <Label Text="Equipe" FontAttributes="Bold" />
                                         <Label Text="{Binding Team.Name}" />
                                     </StackLayout>
+                                    <Button Text="Modifier"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPlayerCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"
+                                        BorderWidth="0"
+                                        TextColor="Black"
+                                        Margin="0,20,0,5"/>
+                                    
                                     <Button 
                                         Text="Supprimer" 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlayerViewModel}}, Path=DeletePlayerCommand}" 
                                         CommandParameter="{Binding .}" 
                                         BackgroundColor="IndianRed"
-                                        Margin="0,20,0,10"/>
+                                        BorderWidth="0"
+                                        Margin="0,5,0,10"/>
+
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>

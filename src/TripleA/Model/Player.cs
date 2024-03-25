@@ -2,16 +2,58 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using TripleA.Managers;
 
 namespace TripleA.Model
 {
     public class Player : INotifyPropertyChanged
     {
+
+        private string name;
+        private string pseudo;
+        private Team team;
+
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Pseudo { get; set; }
-        public Team Team { get; set; } 
+        public string Name
+        {
+            get => name;
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Pseudo
+        {
+            get => pseudo;
+            set
+            {
+                if (pseudo != value)
+                {
+                    pseudo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Team Team
+        {
+            get => team;
+            set
+            {
+                if (team != value)
+                {
+                    team = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public List<Statistic> Statistiques { get; set; }
 
         public Player(int id, string name, string pseudo)
@@ -46,9 +88,7 @@ namespace TripleA.Model
             };
         }
 
-
-        // Gestion des notifications de changement de propriété
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

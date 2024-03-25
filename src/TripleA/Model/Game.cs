@@ -10,14 +10,14 @@ namespace TripleA.Model
     {
         public Guid id { get; set; }
         public DateTime date { get; set; }
-        public List<Team> teams { get; set; }
+        public List<Player> players { get; set; }
         public string gameName { get; set; }
 
-        public Game(Guid anId, DateTime aDate, List<Team> theTeams, string theGameName)
+        public Game(Guid anId, DateTime aDate, List<Player> thePlayers, string theGameName)
         {
             this.id = anId;
             this.date = aDate;
-            this.teams = theTeams;
+            this.players = thePlayers;
             this.gameName = theGameName;
         }
     }

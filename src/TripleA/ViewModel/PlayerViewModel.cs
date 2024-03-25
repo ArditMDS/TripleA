@@ -69,6 +69,8 @@ namespace TripleA.ViewModel
 
         private readonly PlayerManager _playerManager;
 
+        public ICommand DeletePlayerCommand { get; private set; }
+
         public PlayerViewModel(PlayerManager playerManager)
         {
             // creation manuelle de quelques équipes
@@ -80,7 +82,17 @@ namespace TripleA.ViewModel
 
             _playerManager = playerManager;
             Players = playerManager.Players;
+            DeletePlayerCommand = new Command<Player>(DeletePlayer);
 
+        }
+
+        private void DeletePlayer(Player player)
+        {
+            // Supprimez le joueur de la collection dans PlayerManager.
+            _playerManager.Players.Remove(player);
+
+            // Si Players est une ObservableCollection, la vue devrait automatiquement se mettre à jour.
+            // Sinon, déclenchez PropertyChanged pour Players ici si nécessaire.
         }
 
         private void AddPlayer()

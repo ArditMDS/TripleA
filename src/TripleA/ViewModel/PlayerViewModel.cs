@@ -82,9 +82,18 @@ namespace TripleA.ViewModel
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Beta", "BETA", new List<Player>()));
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Gamma", "GAMMA", new List<Player>()));
 
+            LoadDefaultPlayers();
+
             IsEditing = false;
             SaveChangesCommand = new Command(SaveChanges, CanSaveChanges);
             EditPlayerCommand = new Command<Player>(EditPlayer);
+        }
+
+        private void LoadDefaultPlayers()
+        {
+            Players.Add(new Player(1, "Alice", "Alice_Super") { Team = AvailableTeams[0] });
+            Players.Add(new Player(2, "Bob", "Bobby") { Team = AvailableTeams[0] });
+            Players.Add(new Player(3, "Charlie", "Agent007") { Team = AvailableTeams[1] });
         }
 
         private bool CanSaveChanges() => CanSubmit;
@@ -93,16 +102,16 @@ namespace TripleA.ViewModel
         {
             if (_editingPlayer != null)
             {
-                // Mettre à jour le joueur avec les nouvelles valeurs
+                // mise à jous des joueur avec les nouvelles valeurs
                 _editingPlayer.Name = PlayerName;
                 _editingPlayer.Pseudo = PlayerPseudo;
                 _editingPlayer.Team = SelectedTeam;
 
-                // Mise à jour dans la liste (si nécessaire)
+                // mise à jour dans la liste
                 OnPropertyChanged(nameof(Players));
             }
 
-            // Réinitialiser l'état d'édition
+            // réinitialiser l'état d'édition
             ResetEditingState();
         }
 
@@ -119,7 +128,7 @@ namespace TripleA.ViewModel
         {
             _editingPlayer = null;
             IsEditing = false;
-            // Réinitialiser les valeurs des champs d'entrée
+            // réinitialiser les valeurs des champs d'entrée
             PlayerName = string.Empty;
             PlayerPseudo = string.Empty;
             SelectedTeam = null;

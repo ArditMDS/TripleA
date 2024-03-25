@@ -105,6 +105,7 @@
                 Text="Ajouter joueur"
                 SemanticProperties.Hint="Crée un nouveau joueur"
                 Command="{Binding AddPlayerCommand}"
+                IsEnabled="{Binding CanSubmit}"
                 HorizontalOptions="Center" 
                 Margin="3"/>
 

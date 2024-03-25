@@ -31,6 +31,7 @@ namespace TripleA.ViewModel
             {
                 _playerName = value;
                 OnPropertyChanged(nameof(PlayerName));
+                OnPropertyChanged(nameof(CanSubmit));
             }
         }
 
@@ -43,6 +44,7 @@ namespace TripleA.ViewModel
             {
                 _playerPseudo = value;
                 OnPropertyChanged(nameof(PlayerPseudo));
+                OnPropertyChanged(nameof(CanSubmit));
             }
         }
 
@@ -56,6 +58,7 @@ namespace TripleA.ViewModel
                 {
                     _selectedTeam = value;
                     OnPropertyChanged(nameof(SelectedTeam));
+                    OnPropertyChanged(nameof(CanSubmit));
                 }
             }
         }
@@ -89,6 +92,16 @@ namespace TripleA.ViewModel
             OnPropertyChanged(nameof(PlayerName));
             OnPropertyChanged(nameof(PlayerPseudo));
             OnPropertyChanged(nameof(SelectedTeam));
+        }
+
+        public bool CanSubmit
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(PlayerName) &&
+                       !string.IsNullOrWhiteSpace(PlayerPseudo) &&
+                       SelectedTeam != null;
+            }
         }
     }
 }

@@ -51,18 +51,48 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label
-            Grid.Column="1"
-            Grid.Row="0"
-            Text="Pseudo du joueur"
-            VerticalOptions="Center"/>
+                Grid.Column="1"
+                Grid.Row="0"
+                Text="Pseudo du joueur"
+                VerticalOptions="Center"
+            />
             <Entry
-            Grid.Column="1"
-            Grid.Row="1"
-            Placeholder="SuperToto123"
-            Keyboard="Text"/>
+                Grid.Column="1"
+                Grid.Row="1"
+                Placeholder="SuperToto123"
+                Keyboard="Text"
+            />
+
+
+        </Grid>
+
+        <!--dropdown team-->
+        <Grid 
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Picker
+                Grid.Column="1"
+                Grid.Row="0"
+                x:Name="teamPicker" 
+                Title="Choisissez une équipe"
+                ItemsSource="{Binding AvailableTeams}"
+                ItemDisplayBinding="{Binding Name}"
+                HorizontalOptions="FillAndExpand"
+                SelectedIndexChanged="OnTeamSelected"
+                >
+            </Picker>
         </Grid>
 
         <Button

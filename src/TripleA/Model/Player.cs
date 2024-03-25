@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TripleA.Managers;
 
 namespace TripleA.Model
 {
@@ -44,6 +45,7 @@ namespace TripleA.Model
                 { "DDA", dda }
             };
         }
+
 
         // Gestion des notifications de changement de propriété
         protected virtual void OnPropertyChanged(string propertyName)

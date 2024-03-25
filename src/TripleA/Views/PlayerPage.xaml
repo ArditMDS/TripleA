@@ -127,7 +127,7 @@
                     Grid.Row="0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame CornerRadius="10" Padding="10" Margin="5" BackgroundColor="#eeeeee" BorderColor="#eee">
+                            <Frame CornerRadius="10" Padding="20" Margin="5" BackgroundColor="#DCD5F6" BorderColor="#DCD5F6">
                                 <StackLayout>
                                     <StackLayout Orientation="Vertical">
                                         <Label Text="Nom joueur" FontAttributes="Bold" />

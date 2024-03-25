@@ -1,3 +1,4 @@
+using TripleA.Managers;
 using TripleA.Model;
 using TripleA.ViewModel;
 
@@ -5,10 +6,13 @@ namespace TripleA.Views;
 
 public partial class PlayerPage : ContentPage
 {
-	public PlayerPage()
+    private PlayerManager _playerManager;
+    public PlayerPage()
 	{
 		InitializeComponent();
-        BindingContext = new PlayerViewModel();
+
+        _playerManager = new PlayerManager();
+        BindingContext = new PlayerViewModel(_playerManager);
     }
     private void OnTeamSelected(object sender, EventArgs e)
     {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TripleA.Managers;
 using TripleA.Model;
 
 namespace TripleA.ViewModel
@@ -63,9 +64,12 @@ namespace TripleA.ViewModel
             }
         }
 
+
         public ObservableCollection<Team> AvailableTeams { get; set; } = new ObservableCollection<Team>();
 
-        public PlayerViewModel()
+        private readonly PlayerManager _playerManager;
+
+        public PlayerViewModel(PlayerManager playerManager)
         {
             // creation manuelle de quelques équipes
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Alpha", "ALPHA", new List<Player>()));
@@ -73,18 +77,26 @@ namespace TripleA.ViewModel
             AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Gamma", "GAMMA", new List<Player>()));
 
             AddPlayerCommand = new Command(AddPlayer);
+
+            _playerManager = playerManager;
+            Players = playerManager.Players;
+
         }
 
         private void AddPlayer()
         {
+            if (!CanSubmit)
+                return; 
+
             int newId = Players.Count + 1;
 
             var newPlayer = new Player(newId, PlayerName, PlayerPseudo)
             {
                 Team = SelectedTeam
             };
-            Players.Add(newPlayer);
 
+             _playerManager.Players.Add(newPlayer);
+            
             PlayerName = string.Empty;
             PlayerPseudo = string.Empty;
             SelectedTeam = null;
@@ -92,6 +104,7 @@ namespace TripleA.ViewModel
             OnPropertyChanged(nameof(PlayerName));
             OnPropertyChanged(nameof(PlayerPseudo));
             OnPropertyChanged(nameof(SelectedTeam));
+
         }
 
         public bool CanSubmit

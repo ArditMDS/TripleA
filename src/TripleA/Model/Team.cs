@@ -22,7 +22,7 @@ namespace TripleA.Model
             {
                 if (stats != value)
                 {
-                    stats = value;
+                    stats = Math.Round(value, 2);
                     OnPropertyChanged();
                 }
             }

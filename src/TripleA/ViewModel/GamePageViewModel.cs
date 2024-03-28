@@ -5,14 +5,28 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using TripleA.Model;
+using TripleA.Managers;
 
 namespace TripleA.ViewModel
 {
     public class GamePageViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<String> _opponentsName;
-        private ObservableCollection<PlayerViewModel> _players;
+        private ObservableCollection<Player> _players;
         private ObservableCollection<Game> games;
+        private PlayerManager _playerManager;
+
+        public ObservableCollection<Player> Players
+        {
+            get
+            {
+                return _playerManager.Players;
+            }
+            private set
+            {
+                _playerManager.Players = value;
+            }
+        }
 
         public ObservableCollection<String> OpponentsName
         {
@@ -21,15 +35,6 @@ namespace TripleA.ViewModel
             {
                 _opponentsName = value;
                 OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<PlayerViewModel> Players
-        {
-            get { return _players; }
-            set
-            {
-                _players = value;
-                OnPropertyChanged("Players");
             }
         }
 
@@ -56,6 +61,7 @@ namespace TripleA.ViewModel
         }
 
         private string _submittedData;
+
         public string SubmittedData
         {
             get { return _submittedData; }
@@ -68,24 +74,41 @@ namespace TripleA.ViewModel
 
         public ICommand SubmitCommand { get; }
 
-        public GamePageViewModel()
+        public GamePageViewModel(PlayerManager playerManager)
         {
+            _playerManager = playerManager;
+            LoadPlayers();
+
             OpponentsName = new ObservableCollection<String>()
             {
                 "Team A",
                 "Team B"
             };
-            Players = new ObservableCollection<PlayerViewModel>()
+            /*Players = new ObservableCollection<PlayerViewModel>()
             {
                 new PlayerViewModel(new Player(1, "Player 1", "P1", null)),
                 new PlayerViewModel(new Player(2, "Player 2", "P2", null)),
                 new PlayerViewModel(new Player(3, "Player 3", "P3", null)),
-            };
+            };*/
 
             GameName = ""; // Initial game name
             GameDate = DateTime.Now; // Initial game date
 
             SubmitCommand = new Command(OnSubmit);
+        }
+
+        public GamePageViewModel()
+        {
+        }
+
+        private void LoadPlayers()
+        {
+            
+            foreach (Player player in _playerManager.Players)
+            {
+                Players.Add(player);
+            }
+            OnPropertyChanged(nameof(Players));
         }
 
         private void OnSubmit()
@@ -101,7 +124,7 @@ namespace TripleA.ViewModel
             submittedDataBuilder.AppendLine("");
             foreach (var player in Players)
             {
-                    submittedDataBuilder.AppendLine($"- {player.Name}");
+                submittedDataBuilder.AppendLine($"- {player.Name}");
             }
 
             // Set the SubmittedData property to the built string

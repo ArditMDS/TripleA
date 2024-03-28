@@ -10,6 +10,6 @@ namespace TripleA.Managers
 {
     public class PlayerManager
     {
-        public ObservableCollection<Player> Players { get; } = new ObservableCollection<Player>();
+        public ObservableCollection<Player> Players { get; set;  } = new ObservableCollection<Player>();
     }
 }

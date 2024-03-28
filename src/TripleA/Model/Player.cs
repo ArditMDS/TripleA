@@ -26,6 +26,7 @@ namespace TripleA.Model
                 {
                     teamOpponent = value;
                 }
+                OnPropertyChanged();
             }
         }
         public string Name

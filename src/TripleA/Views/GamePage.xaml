@@ -32,11 +32,11 @@
                         <DataTemplate>
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center"/>
-                                <Picker Grid.Column="0" SelectedItem="{Binding chosenTeam}" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:GamePageViewModel}}, Path=OpponentsName}"/>
+                                <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"/>
+                                <Picker Grid.Column="1" SelectedItem="{Binding chosenTeam}" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:GamePageViewModel}}, Path=OpponentsName}"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -54,14 +54,14 @@
             <Label Text="Données soumises:" FontSize="Title" />
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Grid.Row="1" Text="{Binding SubmittedData}" />
@@ -69,10 +69,11 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Orientation="Horizontal">
+                                <StackLayout Spacing="20" Orientation="Horizontal">
+                                    <Label Text="Nom du jeu: " />
                                     <Label Text="{Binding gameName}" />
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="Team A:" />
+                                        <Label Text="Team A: " />
                                         <CollectionView ItemsSource="{Binding playersTeamA}">
                                             <CollectionView.ItemsLayout>
                                                 <LinearItemsLayout Orientation="Horizontal" />
@@ -85,7 +86,7 @@
                                         </CollectionView>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="Team B:" />
+                                        <Label Text="Team B: " />
                                         <CollectionView ItemsSource="{Binding playersTeamB}">
                                             <CollectionView.ItemsLayout>
                                                 <LinearItemsLayout Orientation="Horizontal" />

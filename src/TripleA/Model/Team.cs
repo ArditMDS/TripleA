@@ -21,6 +21,24 @@ namespace TripleA.Model
             }
         }
 
+        public double KDA
+        {
+            get
+            {
+                var stats = GetStatsTeam();
+                return stats.ContainsKey("KDA") ? stats["KDA"] : 0;
+            }
+        }
+
+        public double DDA
+        {
+            get
+            {
+                var stats = GetStatsTeam();
+                return stats.ContainsKey("DDA") ? stats["DDA"] : 0;
+            }
+        }
+
         public Team(Guid id, string name, string nameTag, List<Player> players)
         {
             Id = id;

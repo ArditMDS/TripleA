@@ -35,6 +35,7 @@ namespace TripleA.ViewModels
                     OnPropertyChanged(nameof(SelectedStatType));
                     // Mettez à jour votre vue ou les données ici
                     UpdateRankedTeams(); // Cette méthode doit être implémentée par vous pour mettre à jour les données affichées
+                    UpdateRankedPlayers();
                 }
             }
         }
@@ -51,8 +52,24 @@ namespace TripleA.ViewModels
             }
             catch (ArgumentException ex)
             {
-                // Gérer l'exception si le type de statistique n'est pas valide
-                // Vous pourriez par exemple afficher un message d'erreur à l'utilisateur
+                
+            }
+        }
+
+        private void UpdateRankedPlayers()
+        {
+            try
+            {
+                var rankedPlayer = GetPlayersRankedByStat(_selectedStatType);
+                Players.Clear();
+                foreach (var player in rankedPlayer)
+                {
+                    Players.Add(player);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+
             }
         }
         // Fonction générique pour classer les équipes selon une statistique

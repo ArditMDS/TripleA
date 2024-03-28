@@ -46,6 +46,7 @@ namespace TripleA.ViewModel
         private Player _editingPlayer;
         private bool _isEditing;
         public ICommand SaveChangesCommand { get; private set; }
+        public event EventHandler ScrollToTopRequested;
 
 
         public ObservableCollection<Player> Players { get
@@ -154,6 +155,7 @@ namespace TripleA.ViewModel
             PlayerPseudo = player.Pseudo;
             SelectedTeam = player.Team;
             IsEditing = true;
+            ScrollToTopRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void ResetEditingState()
@@ -210,5 +212,8 @@ namespace TripleA.ViewModel
         {
             get => !_isEditing;
         }
+
+        
+
     }
 }

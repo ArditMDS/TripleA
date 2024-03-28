@@ -56,6 +56,9 @@
 	  <Compile Update="Views\PlayerPage.xaml.cs">
 	    <DependentUpon>PlayerPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\EsportStatsView.xaml.cs">
+	    <DependentUpon>EsportStatsView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,7 +68,7 @@
 	  <MauiXaml Update="Views\PlayerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\StatisticsPage.xaml">
+	  <MauiXaml Update="Views\EsportStatsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

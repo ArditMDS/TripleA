@@ -1,73 +1,179 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TripleA.ViewModel"
              x:Class="TripleA.Views.PlayerPage"
-             Title="Saisie de joueurs">
-    
-    <VerticalStackLayout
-        Spacing="20"
-        Padding="20">
-
-        <Label
-        Text="Ajoutez un nouveau joueur"
-        FontSize="32"
-        Margin="10"
-        HorizontalOptions="Center" 
-        FontAttributes="Bold"/>
-
-        <!--input name-->
-        <Grid 
-        HorizontalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+             Title="Saisie de joueurs"
+             BindingContext="{StaticResource playerViewModel}">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="20"
+            Padding="20">
 
             <Label
-            Grid.Column="1"
-            Grid.Row="0"
-            Text="Nom du joueur"
-            VerticalOptions="Center"/>
-            <Entry
-            Grid.Column="1"
-            Grid.Row="1"
-            Placeholder="Toto"
-            Keyboard="Text"/>
-        </Grid>
-
-        <!--input pseudo-->
-        <Grid 
-            HorizontalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Label
-            Grid.Column="1"
-            Grid.Row="0"
-            Text="Pseudo du joueur"
-            VerticalOptions="Center"/>
-            <Entry
-            Grid.Column="1"
-            Grid.Row="1"
-            Placeholder="SuperToto123"
-            Keyboard="Text"/>
-        </Grid>
-
-        <Button
-            Text="Ajouter joueur"
-            SemanticProperties.Hint="Crée un nouveau joueur"
+            Text="Ajoutez un nouveau joueur"
+            FontSize="32"
+            Margin="10"
             HorizontalOptions="Center" 
-            Margin="3"/>
+            FontAttributes="Bold"/>
 
-    </VerticalStackLayout>
+            <!--input name-->
+            <Grid 
+            HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Text="Nom du joueur"
+                    VerticalOptions="Center"
+                />
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Placeholder="Toto"
+                    Keyboard="Text"
+                    Text="{Binding PlayerName, Mode=TwoWay}"
+                />
+            </Grid>
+
+            <!--input pseudo-->
+            <Grid 
+            HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Text="Pseudo du joueur"
+                    VerticalOptions="Center"
+                />
+                <Entry
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Placeholder="SuperToto123"
+                    Keyboard="Text"
+                    Text="{Binding PlayerPseudo, Mode=TwoWay}"
+                />
+
+
+            </Grid>
+
+            <!--dropdown team-->
+            <Grid 
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Picker
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    x:Name="teamPicker" 
+                    Title="Choisissez une équipe"
+                    ItemsSource="{Binding AvailableTeams}"
+                    SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Name}"
+                    HorizontalOptions="FillAndExpand"
+                    SelectedIndexChanged="OnTeamSelected"
+                    >
+                </Picker>
+            </Grid>
+
+            <Button Text="Sauvegarder changements"
+                Command="{Binding SaveChangesCommand}"
+                IsVisible="{Binding IsEditing}"
+                HorizontalOptions="Center"
+                Margin="0"/>
+
+            <Button
+                Text="Ajouter joueur"
+                SemanticProperties.Hint="Crée un nouveau joueur"
+                Command="{Binding AddPlayerCommand}"
+                IsEnabled="{Binding CanSubmit}"
+                IsVisible="{Binding IsNotEditing}"
+                HorizontalOptions="Center" 
+                Margin="0"/>
+
+            <!--collectionView pour afficher les joueurs ajoutés-->
+            <Grid 
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <CollectionView 
+                    ItemsSource="{Binding Players}"
+                    Grid.Column="1"
+                    Grid.Row="0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" Padding="20" Margin="8" BackgroundColor="#DCD5F6" BorderColor="#DCD5F6">
+                                <StackLayout>
+                                    <StackLayout Orientation="Vertical" Margin="5">
+                                        <Label Text="Nom joueur" FontAttributes="Bold" />
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical" Margin="5">
+                                        <Label Text="Pseudo" FontAttributes="Bold" />
+                                        <Label Text="{Binding Pseudo}" />
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical" Margin="5">
+                                        <Label Text="Equipe" FontAttributes="Bold" />
+                                        <Label Text="{Binding Team.Name}" />
+                                    </StackLayout>
+                                    <Button Text="Modifier"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPlayerCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="LightBlue"
+                                        BorderWidth="0"
+                                        TextColor="Black"
+                                        Margin="0,20,0,5"/>
+                                    
+                                    <Button 
+                                        Text="Supprimer" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlayerViewModel}}, Path=DeletePlayerCommand}" 
+                                        CommandParameter="{Binding .}" 
+                                        BackgroundColor="IndianRed"
+                                        BorderWidth="0"
+                                        Margin="0,5,0,12"/>
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

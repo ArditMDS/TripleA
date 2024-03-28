@@ -4,19 +4,38 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using TripleA.Model;
+using TripleA.Managers;
 
 namespace TripleA.ViewModels
 {
     public class EsportStatsViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Player> Players { get; set; }
+        /*public ObservableCollection<Player> Players { get; set; }*/ 
+        public ObservableCollection<Player> NewPlayers { get; set; } 
         public ObservableCollection<Team> Teams { get; set; }
 
         private string _selectedStatType;
 
-        public EsportStatsViewModel()
+        private ObservableCollection<Player> _players;
+        private PlayerManager _playerManager;
+
+        public ObservableCollection<Player> Players
         {
-            Players = new ObservableCollection<Player>();
+            get
+            {
+                return _playerManager.Players;
+            }
+            private set
+            {
+                _playerManager.Players = value;
+            }
+        }
+
+        public EsportStatsViewModel(PlayerManager playerManager)
+        {
+            NewPlayers = new ObservableCollection<Player>();
+            _playerManager = playerManager;
+            LoadPlayers();
             Teams = new ObservableCollection<Team>();
 
             // Initialiser les données de test
@@ -24,7 +43,17 @@ namespace TripleA.ViewModels
 
             
         }
-        public string SelectedStatType 
+
+        private void LoadPlayers()
+        {
+
+            foreach (Player player in _playerManager.Players)
+            {
+                NewPlayers.Add(player);
+            }
+            OnPropertyChanged(nameof(NewPlayers));
+        }
+        public string SelectedStatType
         {
             get => _selectedStatType;
             set

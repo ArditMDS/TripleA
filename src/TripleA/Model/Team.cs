@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace TripleA.Model
 {
@@ -12,32 +15,26 @@ namespace TripleA.Model
         public string NameTag { get; set; }
         public List<Player> Players { get; set; }
 
-        public double WinRate
-        {
-            get
+        private double stats;
+        public double Stats {
+            get => stats; 
+            set
             {
-                var stats = GetStatsTeam();
-                return stats.ContainsKey("WinRate") ? stats["WinRate"] : 0;
+                if (stats != value)
+                {
+                    stats = Math.Round(value, 2);
+                    OnPropertyChanged();
+                }
             }
         }
 
-        public double KDA
-        {
-            get
-            {
-                var stats = GetStatsTeam();
-                return stats.ContainsKey("KDA") ? stats["KDA"] : 0;
-            }
-        }
 
-        public double DDA
+        public void SetStatView(string statstype)
         {
-            get
-            {
-                var stats = GetStatsTeam();
-                return stats.ContainsKey("DDA") ? stats["DDA"] : 0;
-            }
+            var stats = GetStatsTeam();
+            this.Stats = stats.ContainsKey(statstype) ? stats[statstype] : 0;
         }
+       
 
         public Team(Guid id, string name, string nameTag, List<Player> players)
         {
@@ -73,6 +70,10 @@ namespace TripleA.Model
                 { "DDA", dda }
             };
 
+        }
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

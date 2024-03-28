@@ -13,7 +13,7 @@ namespace TripleA.ViewModel
     {
         private ObservableCollection<String> _opponentsName;
         private ObservableCollection<Player> _players;
-        private ObservableCollection<Game> games;
+        private ObservableCollection<Game> _games;
         private PlayerManager _playerManager;
 
         public ObservableCollection<Player> Players
@@ -25,6 +25,17 @@ namespace TripleA.ViewModel
             private set
             {
                 _playerManager.Players = value;
+            }
+        }
+
+
+        public ObservableCollection<Game> Games
+        {
+            get { return _games; }
+            set
+            {
+                _games = value;
+                OnPropertyChanged(nameof(Games));
             }
         }
 
@@ -88,6 +99,8 @@ namespace TripleA.ViewModel
             GameName = ""; // Initial game name
             GameDate = DateTime.Now; // Initial game date
 
+            Games = new ObservableCollection<Game>(); // Initialize the Games collection here
+
             SubmitCommand = new Command(OnSubmit);
         }
 
@@ -107,24 +120,36 @@ namespace TripleA.ViewModel
 
         private void OnSubmit()
         {
-            // Create a StringBuilder to build the submitted data string
-            StringBuilder submittedDataBuilder = new StringBuilder();
+            List<Player> teamAPlayers = new List<Player>();
+            List<Player> teamBPlayers = new List<Player>();
 
-            // Append game name and date
-            submittedDataBuilder.AppendLine($"{GameName}");
-            submittedDataBuilder.AppendLine($"{GameDate}");
-
-            // Append selected players
-            submittedDataBuilder.AppendLine("");
+            // Separate players into teams A and B based on the selected value in the picker
             foreach (var player in Players)
             {
-                submittedDataBuilder.AppendLine($"- {player.Name}");
+                if (player.chosenTeam == "Team A")
+                {
+                    teamAPlayers.Add(player);
+                }
+                else if (player.chosenTeam == "Team B")
+                {
+                    teamBPlayers.Add(player);
+                }
             }
 
-            // Set the SubmittedData property to the built string
-            SubmittedData = submittedDataBuilder.ToString();
-        }
+            // Create a new Game object with the separated players
+            Game newGame = new Game(Guid.NewGuid(), GameDate, teamAPlayers, teamBPlayers, GameName);
 
+            // Add the new game to the collection
+            Games.Add(newGame);
+
+            // Clear input fields after submission
+            GameName = string.Empty;
+            GameDate = DateTime.Now;
+            Players.Clear(); // Assuming Players is a collection of Player objects that you clear after submission
+
+            // Notify UI that the collection of games has changed
+            OnPropertyChanged(nameof(Games));
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

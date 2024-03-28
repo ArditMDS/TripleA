@@ -113,9 +113,9 @@ namespace TripleA.ViewModel
 
         private void LoadDefaultPlayers()
         {
-            Players.Add(new Player(1, "Alice", "Alice_Super") { Team = AvailableTeams[0] });
-            Players.Add(new Player(2, "Bob", "Bobby") { Team = AvailableTeams[0] });
-            Players.Add(new Player(3, "Charlie", "Agent007") { Team = AvailableTeams[1] });
+            Players.Add(new Player(1, "Alice", "Alice_Super", null) { Team = AvailableTeams[0] });
+            Players.Add(new Player(2, "Bob", "Bobby", null) { Team = AvailableTeams[0] });
+            Players.Add(new Player(3, "Charlie", "Agent007", null) { Team = AvailableTeams[1] });
         }
 
         private bool CanSaveChanges() => CanSubmit;
@@ -165,7 +165,7 @@ namespace TripleA.ViewModel
         {
             if (!CanSubmit) return;
 
-            var newPlayer = new Player(Players.Count + 1, PlayerName, PlayerPseudo) { Team = SelectedTeam };
+            var newPlayer = new Player(Players.Count + 1, PlayerName, PlayerPseudo, null) { Team = SelectedTeam };
             _playerManager.Players.Add(newPlayer);
 
             // on reinitilise les champs

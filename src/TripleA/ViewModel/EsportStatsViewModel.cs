@@ -130,7 +130,7 @@ namespace TripleA.ViewModels
                 var teamPlayers = new List<Player>();
                 for (int playerNumber = 1; playerNumber <= 4; playerNumber++)
                 {
-                    var newPlayer = new Player(playerNumber, $"Joueur {playerNumber} de l'Équipe {teamNumber}", $"Pseudo{playerNumber}");
+                    var newPlayer = new Player(playerNumber, $"Joueur {playerNumber} de l'Équipe {teamNumber}", $"Pseudo{playerNumber}", null);
                     newPlayer.Statistiques.AddRange(GenerateRandomStats());
                     teamPlayers.Add(newPlayer);
                     Players.Add(newPlayer); // Ajout du joueur à la liste globale

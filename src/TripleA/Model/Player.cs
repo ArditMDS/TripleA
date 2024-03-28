@@ -25,6 +25,9 @@ namespace TripleA.Model
                 if (teamOpponent != value)
                 {
                     teamOpponent = value;
+                }
+            }
+        }
         public string Name
         {
             get => name;

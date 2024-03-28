@@ -134,7 +134,7 @@
                     Grid.Row="0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame CornerRadius="10" Padding="20" Margin="8" BackgroundColor="#DCD5F6" BorderColor="#DCD5F6">
+                            <Frame CornerRadius="10" Padding="20" Margin="8" BackgroundColor="#F5F2FF" BorderColor="#F5F2FF">
                                 <StackLayout>
                                     <StackLayout Orientation="Vertical" Margin="5">
                                         <Label Text="Nom joueur" FontAttributes="Bold" />
@@ -150,22 +150,28 @@
                                         <Label Text="Equipe" FontAttributes="Bold" />
                                         <Label Text="{Binding Team.Name}" />
                                     </StackLayout>
-                                    <Button Text="Modifier"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPlayerCommand}"
-                                        CommandParameter="{Binding .}"
-                                        BackgroundColor="LightBlue"
-                                        BorderWidth="0"
-                                        TextColor="Black"
-                                        Margin="0,20,0,5"/>
-                                    
-                                    <Button 
-                                        Text="Supprimer" 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlayerViewModel}}, Path=DeletePlayerCommand}" 
-                                        CommandParameter="{Binding .}" 
-                                        BackgroundColor="IndianRed"
-                                        BorderWidth="0"
-                                        Margin="0,5,0,12"/>
 
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,5">
+                                        <Button Text="Modifier"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPlayerCommand}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="LightBlue"
+                                            WidthRequest="150"
+                                            HorizontalOptions="Start"
+                                            BorderWidth="0"
+                                            TextColor="Black"
+                                            Margin="0,0,15,0"/>
+
+                                        <Button 
+                                            Text="Supprimer" 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlayerViewModel}}, Path=DeletePlayerCommand}" 
+                                            CommandParameter="{Binding .}" 
+                                            BackgroundColor="IndianRed"
+                                            WidthRequest="150"
+                                            HorizontalOptions="End"
+                                            BorderWidth="0"
+                                            Margin="0"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>

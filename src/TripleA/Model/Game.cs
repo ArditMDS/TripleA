@@ -10,21 +10,31 @@ namespace TripleA.Model
     {
         public Guid id { get; set; }
         public DateTime date { get; set; }
-        public List<Player> players { get; set; }
-        // public List<Team> teams { get; set; }
+        public List<Player> playersTeamA { get; set; }
+        public List<Player> playersTeamB { get; set; }
 
-        public Player player1 { get; set; }
-        public Player player2 { get; set; }
         public string gameName { get; set; }
 
-        public Game(Guid anId, DateTime aDate, List<Player> thePlayers, string theGameName)
+        public Game(Guid anId, DateTime aDate, List<Player> thePlayersTeamA, List<Player> thePlayersTeamB, string theGameName)
         {
             this.id = anId;
             this.date = aDate;
-            this.players = thePlayers;
+            this.playersTeamA = thePlayersTeamA;
+            this.playersTeamB = thePlayersTeamB;
             this.gameName = theGameName;
 
-            foreach (Player player in this.players)
+            foreach (Player player in this.playersTeamA)
+            {
+                
+                if (player.Statistiques == null)
+                {
+                    player.Statistiques = new List<Statistic>();
+                }
+
+                
+                player.Statistiques.Add(GenerateRandomStats());
+            }
+            foreach (Player player in this.playersTeamB)
             {
                 
                 if (player.Statistiques == null)

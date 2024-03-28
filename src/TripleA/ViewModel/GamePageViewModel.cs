@@ -129,10 +129,12 @@ namespace TripleA.ViewModel
                 if (player.chosenTeam == "Team A")
                 {
                     teamAPlayers.Add(player);
+                    player.chosenTeam = null;
                 }
                 else if (player.chosenTeam == "Team B")
                 {
                     teamBPlayers.Add(player);
+                    player.chosenTeam = null;
                 }
             }
 
@@ -145,7 +147,7 @@ namespace TripleA.ViewModel
             // Clear input fields after submission
             GameName = string.Empty;
             GameDate = DateTime.Now;
-            Players.Clear(); // Assuming Players is a collection of Player objects that you clear after submission
+
 
             // Notify UI that the collection of games has changed
             OnPropertyChanged(nameof(Games));

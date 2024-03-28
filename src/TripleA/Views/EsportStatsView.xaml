@@ -41,50 +41,49 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView>
-
         <VerticalStackLayout Padding="20" Spacing="15">
-        <!-- Sélecteur Affichage Équipe/Joueur -->
-        <Picker x:Name="displayTypePicker"
-                Title="Afficher les stats par ..." 
-                MinimumWidthRequest="200"
-                Style="{StaticResource PickerStyle}">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}" >
-                    <x:String>Équipes</x:String>
-                    <x:String>Joueurs</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+            <!-- Sélecteur Affichage Équipe/Joueur -->
+            <Picker x:Name="displayTypePicker"
+                    Title="Afficher les stats par ..." 
+                    MinimumWidthRequest="200"
+                    Style="{StaticResource PickerStyle}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}" >
+                        <x:String>Équipes</x:String>
+                        <x:String>Joueurs</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
 
-        <!-- Sélecteur Type de Statistiques -->
-        <Picker x:Name="displayStatPicker"
-        Title="Voir les stats sur .."
-        MinimumWidthRequest="200"
-        Style="{StaticResource PickerStyle}"
-        SelectedItem="{Binding SelectedStatType, Mode=TwoWay}">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>WinRate</x:String>
-                    <x:String>KDA</x:String>
-                    <x:String>DDA</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+            <!-- Sélecteur Type de Statistiques -->
+            <Picker x:Name="displayStatPicker"
+            Title="Voir les stats sur .."
+            MinimumWidthRequest="200"
+            Style="{StaticResource PickerStyle}"
+            SelectedItem="{Binding SelectedStatType, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>WinRate</x:String>
+                        <x:String>KDA</x:String>
+                        <x:String>DDA</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
 
-        <!-- CollectionView pour afficher les classements -->
-        <CollectionView x:Name="rankingCollectionViewTeam" ItemsSource="{Binding Teams}" ItemTemplate="{StaticResource TeamTemplate}" Style="{StaticResource CollectionViewStyle}">
-            
-                
-            
-        </CollectionView>
-
-        <CollectionView x:Name="rankingCollectionViewPlayer" ItemsSource="{Binding Players}" ItemTemplate="{StaticResource PlayerTemplate}" Style="{StaticResource CollectionViewStyle}">
-        
+            <!-- CollectionView pour afficher les classements -->
+            <CollectionView x:Name="rankingCollectionViewTeam" ItemsSource="{Binding Teams}" ItemTemplate="{StaticResource TeamTemplate}" Style="{StaticResource CollectionViewStyle}">
 
 
-        </CollectionView>
-    </VerticalStackLayout>
+
+            </CollectionView>
+
+            <CollectionView x:Name="rankingCollectionViewPlayer" ItemsSource="{Binding Players}" ItemTemplate="{StaticResource PlayerTemplate}" Style="{StaticResource CollectionViewStyle}">
+
+
+
+            </CollectionView>
+        </VerticalStackLayout>
     </ScrollView>
     </ContentPage>

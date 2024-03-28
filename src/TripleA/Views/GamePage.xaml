@@ -4,109 +4,111 @@
              x:Class="TripleA.Views.GamePage"
              xmlns:local="clr-namespace:TripleA.ViewModel"
              Title="Parties et statistiques">
-    <Grid Padding="50">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackLayout Grid.Column="0" Grid.Row="0">
-            <Label Text="Nom du jeu" />
-            <Entry Text="{Binding GameName}" />
+    <ScrollView>
+        <Grid Padding="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Column="0" Grid.Row="0">
+                <Label Text="Nom du jeu" />
+                <Entry Text="{Binding GameName}" />
 
-            <Label Text="Liste des joueurs" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <CollectionView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Players}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"/>
-                                <Picker Grid.Column="1" SelectedItem="{Binding chosenTeam}" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:GamePageViewModel}}, Path=OpponentsName}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
+                <Label Text="Liste des joueurs" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <CollectionView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Players}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"/>
+                                    <Picker Grid.Column="1" SelectedItem="{Binding chosenTeam}" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:GamePageViewModel}}, Path=OpponentsName}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
 
 
-            <Label Text="Date de la partie" />
-            <DatePicker Date="{Binding GameDate}" />
+                <Label Text="Date de la partie" />
+                <DatePicker Date="{Binding GameDate}" />
 
-            <Button Text="Submit" Command="{Binding SubmitCommand}" />
-        </StackLayout>
-        <!-- Display submitted data -->
-        <StackLayout  Grid.Column="1" Grid.Row="0" Margin="10">
-            <Label Text="Données soumises:" FontSize="Title" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                <Button Text="Submit" Command="{Binding SubmitCommand}" />
+            </StackLayout>
+            <!-- Display submitted data -->
+            <StackLayout  Grid.Column="1" Grid.Row="0" Margin="10">
+                <Label Text="Données soumises:" FontSize="Title" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="1" Text="{Binding SubmittedData}" />
-                <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Games}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Spacing="20" Orientation="Horizontal">
-                                    <Label Text="Nom du jeu: " />
-                                    <Label Text="{Binding gameName}" />
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="Team A: " />
-                                        <CollectionView ItemsSource="{Binding playersTeamA}">
-                                            <CollectionView.ItemsLayout>
-                                                <LinearItemsLayout Orientation="Horizontal" />
-                                            </CollectionView.ItemsLayout>
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label Text="{Binding Name}" />
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
+                    <Label Grid.Column="0" Grid.Row="1" Text="{Binding SubmittedData}" />
+                    <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Games}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="20" Orientation="Horizontal">
+                                        <Label Text="Nom du jeu: " />
+                                        <Label Text="{Binding gameName}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Team A: " />
+                                            <CollectionView ItemsSource="{Binding playersTeamA}">
+                                                <CollectionView.ItemsLayout>
+                                                    <LinearItemsLayout Orientation="Horizontal" />
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Label Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Team B: " />
+                                            <CollectionView ItemsSource="{Binding playersTeamB}">
+                                                <CollectionView.ItemsLayout>
+                                                    <LinearItemsLayout Orientation="Horizontal" />
+                                                </CollectionView.ItemsLayout>
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Label Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                        <Label Text="{Binding date}" />
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="Team B: " />
-                                        <CollectionView ItemsSource="{Binding playersTeamB}">
-                                            <CollectionView.ItemsLayout>
-                                                <LinearItemsLayout Orientation="Horizontal" />
-                                            </CollectionView.ItemsLayout>
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Label Text="{Binding Name}" />
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                    </StackLayout>
-                                    <Label Text="{Binding date}" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
 
-            </Grid>
-        </StackLayout>
-    </Grid>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

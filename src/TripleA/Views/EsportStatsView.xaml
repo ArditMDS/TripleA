@@ -22,7 +22,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Label Text="{Binding Pseudo}" Grid.Column="0" TextColor="Black" FontSize="Medium" />
+                    <Label Text="{Binding Name}" Grid.Column="0" TextColor="Black" FontSize="Medium" />
                     <Label Text="{Binding SelectedStatValue}" Grid.Column="2" TextColor="Lime" FontAttributes="Bold" HorizontalTextAlignment="End" />
                 </Grid>
             </DataTemplate>
@@ -35,7 +35,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Text="{Binding Name}" Grid.Column="0" TextColor="Black" FontSize="Medium" />
-                    <Label Text="{Binding Winrate}" Grid.Column="2" TextColor="Lime" FontAttributes="Bold" HorizontalTextAlignment="End" />
+                    <Label Text="{Binding WinRate}" Grid.Column="2" TextColor="Lime" FontAttributes="Bold" HorizontalTextAlignment="End" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -72,10 +72,16 @@
 
 
         <!-- CollectionView pour afficher les classements -->
-        <CollectionView x:Name="rankingCollectionView" ItemsSource="{Binding Teams}" ItemTemplate="{StaticResource TeamTemplate}" Style="{StaticResource CollectionViewStyle}">
+        <CollectionView x:Name="rankingCollectionViewTeam" ItemsSource="{Binding Teams}" ItemTemplate="{StaticResource TeamTemplate}" Style="{StaticResource CollectionViewStyle}">
             
                 
             
+        </CollectionView>
+
+        <CollectionView x:Name="rankingCollectionViewPlayer" ItemsSource="{Binding Players}" ItemTemplate="{StaticResource PlayerTemplate}" Style="{StaticResource CollectionViewStyle}">
+        
+
+
         </CollectionView>
     </VerticalStackLayout>
     </ContentPage>

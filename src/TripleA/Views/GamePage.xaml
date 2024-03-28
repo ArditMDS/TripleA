@@ -63,12 +63,48 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Text="Nom du jeu: " />
-                <Label Grid.Column="1" Grid.Row="0" Text="Team A: " />
-                <Label Grid.Column="2" Grid.Row="0" Text="Team B: " />
-                <Label Grid.Column="3" Grid.Row="0" Text="Date: " />
 
-                <Label Grid.Column="0" Grid.Row="1" Text="{Binding SubmitName}" />
+                <Label Grid.Column="0" Grid.Row="1" Text="{Binding SubmittedData}" />
+                <ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Games}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding gameName}" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Team A:" />
+                                        <CollectionView ItemsSource="{Binding playersTeamA}">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal" />
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Team B:" />
+                                        <CollectionView ItemsSource="{Binding playersTeamB}">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal" />
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                                    <Label Text="{Binding date}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
             </Grid>
         </StackLayout>
     </Grid>

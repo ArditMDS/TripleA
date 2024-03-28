@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:TripleA.ViewModel"
              x:Class="TripleA.Views.PlayerPage"
              Title="Saisie de joueurs">
-    <ScrollView>
+    <ScrollView x:Name="MainScrollView">
         <VerticalStackLayout
             Spacing="20"
             Padding="20">
@@ -151,7 +151,7 @@
                                         <Label Text="{Binding Team.Name}" />
                                     </StackLayout>
 
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,5">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5,10,0,10">
                                         <Button Text="Modifier"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditPlayerCommand}"
                                             CommandParameter="{Binding .}"

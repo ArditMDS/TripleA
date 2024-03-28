@@ -56,5 +56,6 @@ namespace TripleA.Model
             };
 
         }
+
     }
 }

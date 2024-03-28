@@ -167,10 +167,16 @@ namespace TripleA.ViewModel
                 if (_isEditing == value) return;
                 _isEditing = value;
                 OnPropertyChanged(nameof(IsEditing));
+                OnPropertyChanged(nameof(IsNotEditing));
                 OnPropertyChanged(nameof(CanAddPlayer));
                 (AddPlayerCommand as Command)?.ChangeCanExecute();
                 (SaveChangesCommand as Command)?.ChangeCanExecute();
             }
+        }
+
+        public bool IsNotEditing
+        {
+            get => !_isEditing;
         }
     }
 }

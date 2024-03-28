@@ -15,6 +15,19 @@ namespace TripleA.ViewModel
     public class PlayerViewModel : INotifyPropertyChanged
     {
         private bool _opponentName;
+        private string _playerName;
+        private string _playerPseudo;
+        private Team _selectedTeam;
+        private PlayerManager _playerManager;
+        private Player _editingPlayer;
+        private bool _isEditing;
+       
+        public Player Player { get; }
+        public ObservableCollection<Team> AvailableTeams { get; set; } = new ObservableCollection<Team>();
+        public ICommand AddPlayerCommand { get; private set; }
+        public ICommand EditPlayerCommand { get; private set; }
+        public ICommand DeletePlayerCommand { get; private set; }
+
         public bool chosenOpponent
         {
             get { return _opponentName; }
@@ -25,40 +38,7 @@ namespace TripleA.ViewModel
             }
         }
 
-        public Player Player { get; }
-
         public string Name => Player.Name;
-
-        public PlayerViewModel(Player player)
-        {
-            Player = player;
-            chosenOpponent = false; // Default to not selected
-            this.PlayerName = player.Name;
-            this.PlayerPseudo = player.Pseudo;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private string _playerName;
-        private string _playerPseudo;
-        private Team _selectedTeam;
-        private PlayerManager _playerManager;
-        private Player _editingPlayer;
-        private bool _isEditing;
-        public ICommand SaveChangesCommand { get; private set; }
-        public event EventHandler ScrollToTopRequested;
-
-
-        public ObservableCollection<Player> Players { get
-            {
-                return _playerManager.Players;
-            }
-            private set
-            {
-                _playerManager.Players = value;
-            }
-        }
-        public ObservableCollection<Team> AvailableTeams { get; set; } = new ObservableCollection<Team>();
 
         public string PlayerName
         {
@@ -96,9 +76,27 @@ namespace TripleA.ViewModel
             }
         }
 
-        public ICommand AddPlayerCommand { get; private set; }
-        public ICommand EditPlayerCommand { get; private set; }
-        public ICommand DeletePlayerCommand { get; private set; }
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set
+            {
+                if (_isEditing == value) return;
+                _isEditing = value;
+                OnPropertyChanged(nameof(IsEditing));
+                OnPropertyChanged(nameof(IsNotEditing));
+                OnPropertyChanged(nameof(CanAddPlayer));
+                (AddPlayerCommand as Command)?.ChangeCanExecute();
+                (SaveChangesCommand as Command)?.ChangeCanExecute();
+            }
+        }
+
+        public bool IsNotEditing
+        {
+            get => !_isEditing;
+        }
+
+
 
         // constructeur
         public PlayerViewModel(PlayerManager playerManager)
@@ -129,7 +127,44 @@ namespace TripleA.ViewModel
             Players.Add(new Player(4, "Manon", "BlackCat", null) { Team = AvailableTeams[1] });
         }
 
-        private bool CanSaveChanges() => CanSubmit;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand SaveChangesCommand { get; private set; }
+        public event EventHandler ScrollToTopRequested;
+
+
+        public ObservableCollection<Player> Players { get
+            {
+                return _playerManager.Players;
+            }
+            private set
+            {
+                _playerManager.Players = value;
+            }
+        }
+
+        private void AddPlayer()
+        {
+            if (!CanSubmit) return;
+
+            var newPlayer = new Player(Players.Count + 1, PlayerName, PlayerPseudo, null) { Team = SelectedTeam };
+            _playerManager.Players.Add(newPlayer);
+
+            // on reinitilise les champs
+            PlayerName = string.Empty;
+            PlayerPseudo = string.Empty;
+            SelectedTeam = null;
+        }
+
+        private void EditPlayer(Player player)
+        {
+            _editingPlayer = player;
+            PlayerName = player.Name;
+            PlayerPseudo = player.Pseudo;
+            SelectedTeam = player.Team;
+            IsEditing = true;
+            ScrollToTopRequested?.Invoke(this, EventArgs.Empty);
+        }
 
         private void SaveChanges()
         {
@@ -148,16 +183,6 @@ namespace TripleA.ViewModel
             ResetEditingState();
         }
 
-        private void EditPlayer(Player player)
-        {
-            _editingPlayer = player;
-            PlayerName = player.Name;
-            PlayerPseudo = player.Pseudo;
-            SelectedTeam = player.Team;
-            IsEditing = true;
-            ScrollToTopRequested?.Invoke(this, EventArgs.Empty);
-        }
-
         private void ResetEditingState()
         {
             _editingPlayer = null;
@@ -168,52 +193,18 @@ namespace TripleA.ViewModel
             SelectedTeam = null;
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void AddPlayer()
-        {
-            if (!CanSubmit) return;
-
-            var newPlayer = new Player(Players.Count + 1, PlayerName, PlayerPseudo, null) { Team = SelectedTeam };
-            _playerManager.Players.Add(newPlayer);
-
-            // on reinitilise les champs
-            PlayerName = string.Empty;
-            PlayerPseudo = string.Empty;
-            SelectedTeam = null;
-        }
-
         private void DeletePlayer(Player player)
         {
             _playerManager.Players.Remove(player);
         }
 
+        private bool CanSaveChanges() => CanSubmit;
         public bool CanSubmit => !string.IsNullOrWhiteSpace(PlayerName) && !string.IsNullOrWhiteSpace(PlayerPseudo) && SelectedTeam != null;
         public bool CanAddPlayer => !IsEditing;
-        public bool IsEditing
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            get => _isEditing;
-            set
-            {
-                if (_isEditing == value) return;
-                _isEditing = value;
-                OnPropertyChanged(nameof(IsEditing));
-                OnPropertyChanged(nameof(IsNotEditing));
-                OnPropertyChanged(nameof(CanAddPlayer));
-                (AddPlayerCommand as Command)?.ChangeCanExecute();
-                (SaveChangesCommand as Command)?.ChangeCanExecute();
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public bool IsNotEditing
-        {
-            get => !_isEditing;
-        }
-
-        
-
     }
 }

@@ -84,12 +84,6 @@ namespace TripleA.ViewModel
                 "Team A",
                 "Team B"
             };
-            /*Players = new ObservableCollection<PlayerViewModel>()
-            {
-                new PlayerViewModel(new Player(1, "Player 1", "P1", null)),
-                new PlayerViewModel(new Player(2, "Player 2", "P2", null)),
-                new PlayerViewModel(new Player(3, "Player 3", "P3", null)),
-            };*/
 
             GameName = ""; // Initial game name
             GameDate = DateTime.Now; // Initial game date

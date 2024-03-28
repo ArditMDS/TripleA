@@ -1,4 +1,5 @@
-﻿using System;
+using System.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,6 +15,27 @@ namespace TripleA.ViewModel
 {
     public class PlayerViewModel : INotifyPropertyChanged
     {
+        private bool _opponentName;
+        public bool chosenOpponent
+        {
+            get { return _opponentName; }
+            set
+            {
+                _opponentName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Player Player { get; }
+
+        public string Name => Player.Name;
+
+        public PlayerViewModel(Player player)
+        {
+            Player = player;
+            chosenOpponent = false; // Default to not selected
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _playerName;

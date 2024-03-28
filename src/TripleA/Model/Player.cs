@@ -16,6 +16,15 @@ namespace TripleA.Model
         private Team team;
 
         public int Id { get; set; }
+        private string teamOpponent;
+        public string chosenTeam
+        {
+            get => teamOpponent;
+            set
+            {
+                if (teamOpponent != value)
+                {
+                    teamOpponent = value;
         public string Name
         {
             get => name;
@@ -56,12 +65,13 @@ namespace TripleA.Model
         }
         public List<Statistic> Statistiques { get; set; }
 
-        public Player(int id, string name, string pseudo)
+        public Player(int id, string name, string pseudo, string aChosenTeam)
         {
             Id = id;
             Name = name;
             Pseudo = pseudo;
             Statistiques = new List<Statistic>();
+            chosenTeam = aChosenTeam;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -87,7 +97,6 @@ namespace TripleA.Model
                 { "DDA", dda }
             };
         }
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

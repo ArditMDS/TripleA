@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TripleA.Model;
 
 namespace TripleA.ViewModel
 {
     public class PlayerViewModel : INotifyPropertyChanged
     {
-        private bool _isSelected;
-        public bool IsSelected
+        private bool _opponentName;
+        public bool chosenOpponent
         {
-            get { return _isSelected; }
+            get { return _opponentName; }
             set
             {
-                _isSelected = value;
-                OnPropertyChanged("IsSelected");
+                _opponentName = value;
+                OnPropertyChanged();
             }
         }
 
@@ -23,12 +24,12 @@ namespace TripleA.ViewModel
         public PlayerViewModel(Player player)
         {
             Player = player;
-            IsSelected = false; // Default to not selected
+            chosenOpponent = false; // Default to not selected
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

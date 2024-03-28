@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using TripleA.Model;
@@ -9,7 +10,19 @@ namespace TripleA.ViewModel
 {
     public class GamePageViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<String> _opponentsName;
         private ObservableCollection<PlayerViewModel> _players;
+        private ObservableCollection<Game> games;
+
+        public ObservableCollection<String> OpponentsName
+        {
+            get { return _opponentsName; }
+            set
+            {
+                _opponentsName = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<PlayerViewModel> Players
         {
             get { return _players; }
@@ -49,7 +62,7 @@ namespace TripleA.ViewModel
             set
             {
                 _submittedData = value;
-                OnPropertyChanged("SubmitName");
+                OnPropertyChanged();
             }
         }
 
@@ -57,12 +70,16 @@ namespace TripleA.ViewModel
 
         public GamePageViewModel()
         {
+            OpponentsName = new ObservableCollection<String>()
+            {
+                "Team A",
+                "Team B"
+            };
             Players = new ObservableCollection<PlayerViewModel>()
             {
-                new PlayerViewModel(new Player(1, "Player 1", "P1")),
-                new PlayerViewModel(new Player(2, "Player 2", "P2")),
-                new PlayerViewModel(new Player(3, "Player 3", "P3")),
-                // Add more players as needed
+                new PlayerViewModel(new Player(1, "Player 1", "P1", null)),
+                new PlayerViewModel(new Player(2, "Player 2", "P2", null)),
+                new PlayerViewModel(new Player(3, "Player 3", "P3", null)),
             };
 
             GameName = ""; // Initial game name
@@ -84,10 +101,7 @@ namespace TripleA.ViewModel
             submittedDataBuilder.AppendLine("");
             foreach (var player in Players)
             {
-                if (player.IsSelected)
-                {
                     submittedDataBuilder.AppendLine($"- {player.Name}");
-                }
             }
 
             // Set the SubmittedData property to the built string
@@ -96,7 +110,7 @@ namespace TripleA.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

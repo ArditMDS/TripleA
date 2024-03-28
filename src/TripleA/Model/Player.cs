@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace TripleA.Model
 {
@@ -10,15 +12,29 @@ namespace TripleA.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Pseudo { get; set; }
+        private string teamOpponent;
+        public string chosenTeam
+        {
+            get => teamOpponent;
+            set
+            {
+                if (teamOpponent != value)
+                {
+                    teamOpponent = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Team Team { get; set; } 
         public List<Statistic> Statistiques { get; set; }
 
-        public Player(int id, string name, string pseudo)
+        public Player(int id, string name, string pseudo, string aChosenTeam)
         {
             Id = id;
             Name = name;
             Pseudo = pseudo;
             Statistiques = new List<Statistic>();
+            chosenTeam = aChosenTeam;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,7 +62,7 @@ namespace TripleA.Model
         }
 
         // Gestion des notifications de changement de propriété
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

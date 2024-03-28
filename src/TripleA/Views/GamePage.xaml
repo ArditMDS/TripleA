@@ -4,6 +4,7 @@
              x:Class="TripleA.Views.GamePage"
              xmlns:local="clr-namespace:TripleA.ViewModel"
              Title="Parties et statistiques">
+    <ScrollView>
     <Grid Padding="50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -109,4 +110,5 @@
             </Grid>
         </StackLayout>
     </Grid>
+    </ScrollView>
 </ContentPage>

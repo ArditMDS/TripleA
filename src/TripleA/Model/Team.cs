@@ -12,6 +12,15 @@ namespace TripleA.Model
         public string NameTag { get; set; }
         public List<Player> Players { get; set; }
 
+        public double WinRate
+        {
+            get
+            {
+                var stats = GetStatsTeam();
+                return stats.ContainsKey("WinRate") ? stats["WinRate"] : 0;
+            }
+        }
+
         public Team(Guid id, string name, string nameTag, List<Player> players)
         {
             Id = id;

@@ -12,7 +12,7 @@
     </FlyoutItem>-->
 
     <FlyoutItem Title="📊 Statistiques" Route="Statistiques">
-        <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
+        <ShellContent ContentTemplate="{DataTemplate views:EsportStatsView}" />
     </FlyoutItem>
 
     <FlyoutItem Title="🕹️ Joueurs">

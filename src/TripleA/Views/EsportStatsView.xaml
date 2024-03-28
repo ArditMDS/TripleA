@@ -35,7 +35,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Label Text="{Binding Name}" Grid.Column="0" TextColor="Black" FontSize="Medium" />
-                    <Label Text="{Binding WinRate}" Grid.Column="2" TextColor="Lime" FontAttributes="Bold" HorizontalTextAlignment="End" />
+                    <Label Text="{Binding Winrate}" Grid.Column="2" TextColor="Lime" FontAttributes="Bold" HorizontalTextAlignment="End" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>

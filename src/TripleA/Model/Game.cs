@@ -23,6 +23,35 @@ namespace TripleA.Model
             this.date = aDate;
             this.players = thePlayers;
             this.gameName = theGameName;
+
+            foreach (Player player in this.players)
+            {
+                
+                if (player.Statistiques == null)
+                {
+                    player.Statistiques = new List<Statistic>();
+                }
+
+                
+                player.Statistiques.Add(GenerateRandomStats());
+            }
+        }
+        public Statistic GenerateRandomStats()
+        {
+            var random = new Random();
+
+            Statistic randomStat = new Statistic(
+                    random.Next(2) == 0,
+                    random.Next(10),
+                    random.Next(10),
+                    random.Next(10),
+                    random.Next(10000),
+                    random.Next(10000),
+                    random.Next(300),
+                    TimeSpan.FromMinutes(random.Next(20, 40))
+                );
+            
+            return randomStat;
         }
     }
 }

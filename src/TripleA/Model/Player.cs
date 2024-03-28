@@ -69,6 +69,26 @@ namespace TripleA.Model
         }
         public List<Statistic> Statistiques { get; set; }
 
+        private double stats;
+        public double Stats
+        {
+            get => stats;
+            set
+            {
+                if (stats != value)
+                {
+                    stats = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        public void SetStatView(string statstype)
+        {
+            var stats = GetStatsPlayer();
+            this.Stats = stats.ContainsKey(statstype) ? stats[statstype] : 0;
+        }
         public Player(int id, string name, string pseudo, string aChosenTeam)
         {
             Id = id;

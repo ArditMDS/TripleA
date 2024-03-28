@@ -24,7 +24,7 @@ namespace TripleA.ViewModels
 
             
         }
-        public string SelectedStatType
+        public string SelectedStatType 
         {
             get => _selectedStatType;
             set
@@ -33,12 +33,22 @@ namespace TripleA.ViewModels
                 {
                     _selectedStatType = value;
                     OnPropertyChanged(nameof(SelectedStatType));
-                    // Mettez à jour votre vue ou les données ici
-                    UpdateRankedTeams(); // Cette méthode doit être implémentée par vous pour mettre à jour les données affichées
+                    
+                    UpdateRankedTeams();
                     UpdateRankedPlayers();
+
+                    foreach (var team in Teams)
+                    {
+                        team.SetStatView(_selectedStatType);
+                    }
+                    foreach (var player in Players)
+                    {
+                        player.SetStatView(_selectedStatType);
+                    }
                 }
             }
         }
+        
         private void UpdateRankedTeams()
         {
             try

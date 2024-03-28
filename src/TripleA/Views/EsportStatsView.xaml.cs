@@ -9,8 +9,5 @@ public partial class EsportStatsView : ContentPage
         InitializeComponent();
         var viewModel = new EsportStatsViewModel();
         this.BindingContext = viewModel;
-
-      
-       
     }
 }

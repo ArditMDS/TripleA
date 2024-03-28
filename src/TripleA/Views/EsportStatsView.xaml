@@ -43,7 +43,10 @@
 
     <VerticalStackLayout Padding="20" Spacing="15">
         <!-- Sélecteur Affichage Équipe/Joueur -->
-        <Picker x:Name="displayTypePicker" Title="Afficher" Style="{StaticResource PickerStyle}">
+        <Picker x:Name="displayTypePicker"
+                Title="Afficher les stats par ..." 
+                MinimumWidthRequest="200"
+                Style="{StaticResource PickerStyle}">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}" >
                     <x:String>Équipes</x:String>
@@ -54,7 +57,8 @@
 
         <!-- Sélecteur Type de Statistiques -->
         <Picker x:Name="displayStatPicker"
-        Title="Afficher"
+        Title="Voir les stats sur .."
+        MinimumWidthRequest="200"
         Style="{StaticResource PickerStyle}"
         SelectedItem="{Binding SelectedStatType, Mode=TwoWay}">
             <Picker.ItemsSource>

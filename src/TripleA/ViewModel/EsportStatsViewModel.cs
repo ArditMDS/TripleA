@@ -22,13 +22,7 @@ namespace TripleA.ViewModels
             // Initialiser les données de test
             InitializeTestData();
 
-            var rankedTeams = GetTeamsRankedByStat("WinRate");
-
-            Teams.Clear();
-            foreach (var team in rankedTeams)
-            {
-                Teams.Add(team);
-            }
+            
         }
         public string SelectedStatType
         {

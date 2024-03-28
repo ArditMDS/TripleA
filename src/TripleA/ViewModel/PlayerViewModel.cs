@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -110,9 +109,9 @@ namespace TripleA.ViewModel
             DeletePlayerCommand = new Command<Player>(DeletePlayer);
 
             // creation manuelle de quelques équipes
-            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Alpha", "ALPHA", new List<Player>()));
-            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Beta", "BETA", new List<Player>()));
-            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe Gamma", "GAMMA", new List<Player>()));
+            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe 1", "E1", new List<Player>()));
+            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe 2", "E2", new List<Player>()));
+            AvailableTeams.Add(new Team(Guid.NewGuid(), "Équipe 3", "E3", new List<Player>()));
 
             LoadDefaultPlayers();
 
@@ -126,6 +125,7 @@ namespace TripleA.ViewModel
             Players.Add(new Player(1, "Alice", "Alice_Super", null) { Team = AvailableTeams[0] });
             Players.Add(new Player(2, "Bob", "Bobby", null) { Team = AvailableTeams[0] });
             Players.Add(new Player(3, "Charlie", "Agent007", null) { Team = AvailableTeams[1] });
+            Players.Add(new Player(4, "Manon", "BlackCat", null) { Team = AvailableTeams[1] });
         }
 
         private bool CanSaveChanges() => CanSubmit;

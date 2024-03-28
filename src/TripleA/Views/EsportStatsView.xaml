@@ -6,8 +6,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="PickerStyle" TargetType="Picker">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="BackgroundColor" Value="#2E2E2E" />
+                <Setter Property="TextColor" Value="#2E2E2E" />
+                <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             </Style>
 

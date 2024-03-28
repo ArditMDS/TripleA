@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TripleA.ViewModel"
              x:Class="TripleA.Views.PlayerPage"
-             Title="Saisie de joueurs"
-             BindingContext="{StaticResource playerViewModel}">
+             Title="Saisie de joueurs">
     <ScrollView>
         <VerticalStackLayout
             Spacing="20"

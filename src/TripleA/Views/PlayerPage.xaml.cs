@@ -11,8 +11,7 @@ public partial class PlayerPage : ContentPage
 	{
 		InitializeComponent();
 
-        _playerManager = new PlayerManager();
-        BindingContext = new PlayerViewModel(_playerManager);
+        BindingContext = App.PlayerViewModelInstance;
     }
     private void OnTeamSelected(object sender, EventArgs e)
     {

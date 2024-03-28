@@ -34,6 +34,8 @@ namespace TripleA.ViewModel
         {
             Player = player;
             chosenOpponent = false; // Default to not selected
+            this.PlayerName = player.Name;
+            this.PlayerPseudo = player.Pseudo;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -41,13 +43,21 @@ namespace TripleA.ViewModel
         private string _playerName;
         private string _playerPseudo;
         private Team _selectedTeam;
-        private readonly PlayerManager _playerManager;
+        private PlayerManager _playerManager;
         private Player _editingPlayer;
         private bool _isEditing;
         public ICommand SaveChangesCommand { get; private set; }
 
 
-        public ObservableCollection<Player> Players { get; private set; }
+        public ObservableCollection<Player> Players { get
+            {
+                return _playerManager.Players;
+            }
+            private set
+            {
+                _playerManager.Players = value;
+            }
+        }
         public ObservableCollection<Team> AvailableTeams { get; set; } = new ObservableCollection<Team>();
 
         public string PlayerName

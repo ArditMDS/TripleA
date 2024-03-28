@@ -1,4 +1,7 @@
-﻿namespace TripleA
+﻿using TripleA.Managers;
+using TripleA.ViewModel;
+
+namespace TripleA
 {
     public partial class MainPage : ContentPage
     {
@@ -7,7 +10,12 @@
         public MainPage()
         {
             InitializeComponent();
+            var playerManager = new PlayerManager();
+            var viewModel = new GamePageViewModel(playerManager);
+            this.DataContext = viewModel;
         }
+
+        public GamePageViewModel DataContext { get; }
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
